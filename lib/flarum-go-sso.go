@@ -95,6 +95,24 @@ func (fc FlarumClient) UpdateBio(token string, userId string, bio string) error 
 	return err
 }
 
+func (fc FlarumClient) UpdateEmail(token string, userId string, email string, password string) error {
+	var payload = map[string]interface{}{
+		"data": map[string]interface{}{
+			"type": "users",
+			"id": userId,
+			"attributes": map[string]interface{}{
+				"email": email,
+			},
+		},
+		"meta.password": password,
+	}
+
+	response, err := fc.sendApiRequest("PATCH", "/users/" + userId, token, payload)
+
+	log.Println(response);
+	return err
+}
+
 //
 //func (fc FlarumClient) UpdateProfile (profile *FlarumProfile) error {
 //
