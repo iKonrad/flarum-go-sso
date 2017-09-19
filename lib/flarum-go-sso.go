@@ -135,7 +135,7 @@ func (fc FlarumClient) sendApiRequest(method string, path string, token string, 
 
 	req, err := http.NewRequest(method, url, bytes.NewBuffer(payloadString))
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Token " + token)
+	req.Header.Set("Authorization", "Token " + token + "; userId=1")
 
 	client := &http.Client{}
 	resp, err := client.Do(req)

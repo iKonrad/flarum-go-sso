@@ -7,7 +7,8 @@ import (
 
 func main() {
 
-	client := sso.NewClient("http://localhost:1234", "12345678", 14)
+	adminToken := "TjqfSScoHofhYzPDchaEBbnNWAmHUjodvucmDvzk";
+	client := sso.NewClient("http://localhost:1234", adminToken, 14)
 
 	pass := "Test.123";
 
@@ -18,7 +19,7 @@ func main() {
 	}
 
 	//client.UpdateBio(token, userId, "lol")
-	client.UpdateEmail(token, userId, "jarssssson@icloud.com", pass)
+	client.UpdateEmail(adminToken, userId, "jaron@icloud.com", pass)
 
 	log.Println(token, err)
 
