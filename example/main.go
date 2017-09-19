@@ -4,6 +4,7 @@ import (
 	"log"
 
 	sso "github.com/iKonrad/go-flarum"
+	"fmt"
 )
 
 func main() {
@@ -12,8 +13,7 @@ func main() {
 
 	login := "loleko"
 	pass := "testingpass"
-	email := "lolek@bolekkkk.com";
-
+	email := "lolek@bolekkkk.com"
 	client.SignUp(login, email, pass)
 
 	token, userId, err := client.LogIn(login, pass)

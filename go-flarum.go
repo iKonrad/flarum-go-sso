@@ -38,8 +38,8 @@ func NewClient(url string, token string, maxAge int) *FlarumClient {
  * Sends HTTP request to forum API instance
  */
 func (fc FlarumClient) sendApiRequest(method string, path string, payload map[string]interface{}) (response map[string]interface{}, err error) {
-
 	url := fc.url + FORUM_API_SUFFIX + path
+
 	// Convert map to a JSON string
 	payloadString, err := json.Marshal(payload)
 

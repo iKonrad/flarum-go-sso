@@ -1,8 +1,8 @@
 package go_flarum
 
 import (
-	"strconv"
 	"errors"
+	"strconv"
 )
 
 // LogIn creates a RememberMe token that can be added as a cookie to authenticate in Flarum forum
@@ -66,7 +66,7 @@ func (fc FlarumClient) UpdateUserAttribute(userId string, attribute string, valu
 }
 
 // DeleteUser removes a user form the database. This is action cannot be undone!
-func (fc FlarumClient) DeleteUser (userId string) error {
+func (fc FlarumClient) DeleteUser(userId string) error {
 	var payload = map[string]interface{}{
 		"data": map[string]interface{}{
 			"type": "users",
@@ -77,3 +77,12 @@ func (fc FlarumClient) DeleteUser (userId string) error {
 	_, err := fc.sendApiRequest(request.DELETE, "/users/"+userId, payload)
 	return err
 }
+
+// GetUserByUsername fetches the user data by a given userId
+func (fc FlarumClient) GetUserByUsername(username string) (user map[string]interface{}, err error) {
+	response, err := fc.sendApiRequest(request.GET, "/users?filter[q]=\""+username + "\"", map[string]interface{}{})
+	return response, err
+}
+
+
+
