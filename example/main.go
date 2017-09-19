@@ -4,7 +4,6 @@ import (
 	"log"
 
 	sso "github.com/iKonrad/go-flarum"
-	"fmt"
 )
 
 func main() {
