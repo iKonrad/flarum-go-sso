@@ -49,6 +49,28 @@ func (fc FlarumClient) SignUp(username string, email string, password string) er
 	return err
 }
 
+func (fc FlarumClient) ActivateUser(userId string) error {
+	return fc.toggleUserActivation(userId, true)
+}
+
+func (fc FlarumClient) DeactivateUser(userId string) error {
+	return fc.toggleUserActivation(userId, false)
+}
+
+func (fc FlarumClient) toggleUserActivation(userId string, isActivated bool) error {
+	var payload = map[string]interface{}{
+		"data": map[string]interface{}{
+			"type": "users",
+			"id":   userId,
+			"attributes": map[string]interface{}{
+				"isActivated": isActivated,
+			},
+		},
+	}
+	_, err := fc.sendApiRequest(request.PATCH, "/users/"+userId, payload)
+	return err
+}
+
 // UpdateUserBio update user field for a given attribute key and value
 func (fc FlarumClient) UpdateUserAttribute(userId string, attribute string, value string) error {
 	var payload = map[string]interface{}{

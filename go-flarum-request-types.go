@@ -5,6 +5,8 @@ type RequestType struct {
 	POST string
 	PATCH string
 	DELETE string
+	PROTOCOL_HTTP string
+	PROTOCOL_HTTPS string
 }
 
 var request RequestType
@@ -15,5 +17,7 @@ func init() {
 		POST:  "POST",
 		PATCH: "PATCH",
 		DELETE: "DELETE",
+		PROTOCOL_HTTP: "http://",
+		PROTOCOL_HTTPS: "https://",
 	}
 }

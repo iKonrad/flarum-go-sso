@@ -7,7 +7,8 @@ import (
 	"net/http"
 )
 
-const REMEMBER_ME_KEY = "flarum_remember"
+const COOKIE_REMEMBER_ME = "flarum_remember"
+const COOKIE_SESSION = "flarum_session"
 const DAYS_MULTIPLIER = 60 * 60 * 24
 const FORUM_API_SUFFIX = "/api"
 
@@ -38,7 +39,7 @@ func NewClient(url string, token string, maxAge int) *FlarumClient {
  * Sends HTTP request to forum API instance
  */
 func (fc FlarumClient) sendApiRequest(method string, path string, payload map[string]interface{}) (response map[string]interface{}, err error) {
-	url := fc.url + FORUM_API_SUFFIX + path
+	url := request.PROTOCOL_HTTP + fc.url + FORUM_API_SUFFIX + path
 
 	// Convert map to a JSON string
 	payloadString, err := json.Marshal(payload)
