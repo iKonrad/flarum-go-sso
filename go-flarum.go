@@ -3,6 +3,7 @@ package go_flarum
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"net/http"
 )
@@ -51,10 +52,17 @@ func (fc FlarumClient) sendApiRequest(method string, path string, payload map[st
 	client := &http.Client{}
 	resp, err := client.Do(req)
 
-	defer resp.Body.Close()
-	body, _ := ioutil.ReadAll(resp.Body)
+	if err == nil {
+		if resp.StatusCode != 200 {
+			err = errors.New("Forum returned a code other than 200")
+		} else {
+			defer resp.Body.Close()
+			body, _ := ioutil.ReadAll(resp.Body)
+			var bodyMap map[string]interface{}
+			json.Unmarshal(body, &bodyMap)
+			return bodyMap, err
+		}
+	}
 
-	var bodyMap map[string]interface{}
-	json.Unmarshal(body, &bodyMap)
-	return bodyMap, err
+	return map[string]interface{}{}, err
 }
